@@ -121,11 +121,11 @@ export function TaskCard({
   return (
     <Card
       className={cn(
-        "task-card p-4 transition-all duration-200 hover:shadow-card-hover group animate-fade-in",
+        "task-card p-3 sm:p-4 transition-all duration-200 hover:shadow-card-hover group animate-fade-in",
         task.status === "done" && "opacity-60"
       )}
     >
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-2 sm:gap-3">
         {/* Status button with label */}
         <button
           onClick={() => {
@@ -138,12 +138,12 @@ export function TaskCard({
             onStatusChange(task.id, nextStatus);
           }}
           className={cn(
-            "flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium transition-colors hover:bg-accent",
+            "flex items-center gap-1 sm:gap-1.5 px-2 py-1.5 sm:py-1 rounded-md text-xs font-medium transition-colors hover:bg-accent active:bg-accent min-h-[32px] sm:min-h-0",
             statusConfig[task.status].className
           )}
         >
-          <StatusIcon className="h-4 w-4" />
-          <span className="hidden sm:inline">
+          <StatusIcon className="h-4 w-4 flex-shrink-0" />
+          <span className="hidden xs:inline">
             {statusConfig[task.status].label}
           </span>
         </button>
@@ -153,48 +153,48 @@ export function TaskCard({
           <div className="flex items-start justify-between gap-2">
             <h3
               className={cn(
-                "task-title font-medium text-foreground leading-tight",
+                "task-title font-medium text-foreground leading-tight text-sm sm:text-base",
                 task.status === "done" && "line-through text-muted-foreground"
               )}
             >
               {task.title}
             </h3>
 
-            {/* Action buttons - visible on hover */}
-            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            {/* Action buttons - always visible on touch, hover on desktop */}
+            <div className="flex items-center gap-0.5 sm:gap-1 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-7 px-2 text-muted-foreground hover:text-foreground"
+                className="h-8 w-8 sm:h-7 sm:w-auto sm:px-2 p-0 text-muted-foreground hover:text-foreground active:text-foreground"
                 onClick={() => onEdit(task)}
               >
-                <Edit2 className="h-3.5 w-3.5 mr-1" />
-                <span className="text-xs">Edit</span>
+                <Edit2 className="h-4 w-4 sm:h-3.5 sm:w-3.5 sm:mr-1" />
+                <span className="hidden sm:inline text-xs">Edit</span>
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-7 px-2 text-destructive hover:text-destructive hover:bg-destructive/10"
+                className="h-8 w-8 sm:h-7 sm:w-auto sm:px-2 p-0 text-destructive hover:text-destructive hover:bg-destructive/10 active:bg-destructive/10"
                 onClick={() => onDelete(task)}
               >
-                <Trash2 className="h-3.5 w-3.5 mr-1" />
-                <span className="text-xs">Delete</span>
+                <Trash2 className="h-4 w-4 sm:h-3.5 sm:w-3.5 sm:mr-1" />
+                <span className="hidden sm:inline text-xs">Delete</span>
               </Button>
             </div>
           </div>
 
           {task.description && (
-            <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1.5 sm:mt-1 line-clamp-2">
               {task.description}
             </p>
           )}
 
           {/* Meta info */}
-          <div className="task-meta flex flex-wrap items-center gap-2 mt-3">
+          <div className="task-meta flex flex-wrap items-center gap-1.5 sm:gap-2 mt-2 sm:mt-3">
             {course && (
               <Badge
                 variant="outline"
-                className="text-xs font-normal"
+                className="text-[10px] sm:text-xs font-normal max-w-[120px] sm:max-w-none truncate"
                 style={{
                   borderColor: course.color + "40",
                   backgroundColor: course.color + "10",
@@ -208,7 +208,7 @@ export function TaskCard({
             <Badge
               variant="outline"
               className={cn(
-                "text-xs font-normal",
+                "text-[10px] sm:text-xs font-normal flex-shrink-0",
                 priorityConfig[task.priority].className
               )}
             >
@@ -218,7 +218,7 @@ export function TaskCard({
             {dueDateInfo && (
               <span
                 className={cn(
-                  "flex items-center gap-1 text-xs",
+                  "flex items-center gap-1 text-[10px] sm:text-xs flex-shrink-0",
                   dueDateInfo.className
                 )}
               >
@@ -236,7 +236,7 @@ export function TaskCard({
               (task.status === "done" && task.timeSpent)) && (
               <span
                 className={cn(
-                  "flex items-center gap-1 text-xs font-medium",
+                  "flex items-center gap-1 text-[10px] sm:text-xs font-medium flex-shrink-0",
                   task.status === "doing"
                     ? "text-primary animate-pulse"
                     : "text-success"

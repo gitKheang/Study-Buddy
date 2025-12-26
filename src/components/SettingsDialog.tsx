@@ -228,43 +228,48 @@ export function SettingsDialog({
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="w-[calc(100%-1rem)] max-w-lg p-0">
-          <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-0 flex-shrink-0">
-            <DialogTitle className="text-lg sm:text-xl">Settings</DialogTitle>
+        <DialogContent className="w-[calc(100%-1rem)] max-w-[calc(100%-1rem)] sm:max-w-lg p-0 max-h-[90vh] sm:max-h-[85vh]">
+          <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-2 flex-shrink-0">
+            <DialogTitle className="text-lg sm:text-xl pr-8">
+              Settings
+            </DialogTitle>
           </DialogHeader>
 
-          <ScrollArea className="flex-1 min-h-0 max-h-[55vh] sm:max-h-[65vh]">
-            <div className="px-4 sm:px-6 pb-6 space-y-5 sm:space-y-6">
+          <ScrollArea className="flex-1 min-h-0 max-h-[70vh] sm:max-h-[65vh] touch-scroll">
+            <div className="px-4 sm:px-6 pb-6 space-y-4 sm:space-y-6">
               {/* Account Section */}
-              <section className="space-y-3 sm:space-y-4">
+              <section className="space-y-3">
                 <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                   <User className="h-4 w-4" />
                   Account
                 </div>
 
                 <div className="space-y-3 pl-4 sm:pl-6">
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <Label className="text-xs text-muted-foreground">
                       Email
                     </Label>
-                    <p className="text-sm">
+                    <p className="text-sm truncate">
                       {user?.email || "demo@studyplanner.app"}
                     </p>
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label htmlFor="displayName">Display Name</Label>
+                    <Label htmlFor="displayName" className="text-sm">
+                      Display Name
+                    </Label>
                     <div className="flex gap-2">
                       <Input
                         id="displayName"
                         value={displayName}
                         onChange={(e) => setDisplayName(e.target.value)}
                         placeholder="Enter display name"
-                        className="flex-1"
+                        className="flex-1 h-10"
                       />
                       <Button
                         variant="outline"
                         size="sm"
+                        className="h-10 px-3"
                         onClick={handleSaveDisplayName}
                         disabled={
                           profileLoading ||

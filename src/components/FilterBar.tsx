@@ -41,7 +41,7 @@ export function FilterBar({
   className,
 }: FilterBarProps) {
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className={cn("space-y-3 sm:space-y-4", className)}>
       {/* Search */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -49,13 +49,13 @@ export function FilterBar({
           placeholder="Search tasks..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-9 pr-9"
+          className="pl-9 pr-9 h-10 sm:h-9 text-base sm:text-sm"
         />
         {searchQuery && (
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+            className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 sm:h-7 sm:w-7"
             onClick={() => onSearchChange("")}
           >
             <X className="h-4 w-4" />
@@ -64,42 +64,46 @@ export function FilterBar({
       </div>
 
       {/* Filter tabs and sort */}
-      <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2">
-        <div className="flex gap-1 p-1 bg-muted rounded-lg overflow-x-auto scrollbar-hide touch-scroll">
-          {statusFilters.map(({ value, label }) => (
-            <Button
-              key={value}
-              variant="ghost"
-              size="sm"
-              className={cn(
-                "h-8 px-3 rounded-md transition-all",
-                filter === value
-                  ? "bg-background shadow-sm text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-              onClick={() => onFilterChange(value)}
-            >
-              {label}
-              <Badge
-                variant="secondary"
+      <div className="flex flex-col gap-2 sm:gap-3">
+        {/* Scrollable filter tabs for mobile */}
+        <div className="-mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto scrollbar-hide touch-scroll">
+          <div className="flex gap-1 p-1 bg-muted rounded-lg w-max sm:w-auto min-w-full sm:min-w-0">
+            {statusFilters.map(({ value, label }) => (
+              <Button
+                key={value}
+                variant="ghost"
+                size="sm"
                 className={cn(
-                  "ml-1.5 h-5 min-w-[20px] px-1.5 text-xs",
-                  filter === value && "bg-primary/10 text-primary"
+                  "h-9 sm:h-8 px-3 sm:px-3 rounded-md transition-all whitespace-nowrap flex-shrink-0",
+                  filter === value
+                    ? "bg-background shadow-sm text-foreground"
+                    : "text-muted-foreground hover:text-foreground active:text-foreground"
                 )}
+                onClick={() => onFilterChange(value)}
               >
-                {taskCounts[value]}
-              </Badge>
-            </Button>
-          ))}
+                {label}
+                <Badge
+                  variant="secondary"
+                  className={cn(
+                    "ml-1.5 h-5 min-w-[20px] px-1.5 text-xs",
+                    filter === value && "bg-primary/10 text-primary"
+                  )}
+                >
+                  {taskCounts[value]}
+                </Badge>
+              </Button>
+            ))}
+          </div>
         </div>
 
-        <div className="flex items-center gap-2 sm:ml-auto">
+        {/* Sort dropdown - full width on mobile */}
+        <div className="flex items-center gap-2">
           <SortAsc className="h-4 w-4 text-muted-foreground flex-shrink-0" />
           <Select
             value={sortBy}
             onValueChange={(v) => onSortChange(v as SortOption)}
           >
-            <SelectTrigger className="w-[140px] h-8 flex-shrink-0">
+            <SelectTrigger className="w-full sm:w-[140px] h-9 sm:h-8">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

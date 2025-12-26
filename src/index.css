@@ -901,44 +901,75 @@
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
   }
+
+  /* Better scrolling in dialogs on iOS */
+  [data-radix-scroll-area-viewport] {
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
-/* iPhone SE, iPhone 8 and smaller */
+/* iPhone SE, iPhone 8 and smaller (320-375px) */
 @media screen and (max-width: 375px) {
   .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
-  /* Smaller dialog padding on small phones */
+  /* Smaller dialog on tiny phones */
   [role="dialog"] {
-    padding: 1rem;
+    max-width: calc(100vw - 1rem) !important;
+    margin: 0.5rem;
   }
 
   /* Smaller text on very small screens */
   h1 {
-    font-size: 1.75rem !important;
+    font-size: 1.5rem !important;
+  }
+
+  /* Compact task cards on small screens */
+  .task-card {
+    padding: 0.625rem !important;
+  }
+
+  .task-meta {
+    gap: 0.25rem !important;
   }
 }
 
-/* iPhone 12/13/14 Pro and similar */
-@media screen and (min-width: 390px) and (max-width: 428px) {
+/* iPhone 12/13/14/15 standard (390px) */
+@media screen and (min-width: 376px) and (max-width: 393px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* iPhone 12/13/14/15 Pro (393-430px) */
+@media screen and (min-width: 393px) and (max-width: 430px) {
   .container {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
 }
 
-/* iPhone Plus/Max models */
-@media screen and (min-width: 414px) and (max-width: 430px) {
+/* iPhone Plus/Max models (430px+) */
+@media screen and (min-width: 430px) and (max-width: 640px) {
   .container {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 }
 
-/* iPad Mini and iPad (portrait) */
-@media screen and (min-width: 744px) and (max-width: 834px) {
+/* iPad Mini (768px portrait) */
+@media screen and (min-width: 640px) and (max-width: 768px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* iPad (768px - 834px portrait) */
+@media screen and (min-width: 768px) and (max-width: 834px) {
   .container {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -951,7 +982,7 @@
   }
 }
 
-/* iPad Pro 11" (portrait) */
+/* iPad Pro 11" (834px - 1024px) */
 @media screen and (min-width: 834px) and (max-width: 1024px) {
   .container {
     padding-left: 2.5rem;
@@ -959,7 +990,7 @@
   }
 }
 
-/* iPad Pro 12.9" and larger iPads */
+/* iPad Pro 12.9" and larger iPads (1024px+) */
 @media screen and (min-width: 1024px) and (max-width: 1366px) {
   .container {
     padding-left: 3rem;
@@ -967,38 +998,22 @@
   }
 }
 
-/* Responsive container padding */
-@media screen and (min-width: 834px) {
-  .container {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .container {
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-}
-
 /* ============================================
-   TOUCH TARGET SIZE IMPROVEMENTS
+   TOUCH DEVICE SPECIFIC STYLES
    ============================================ */
 @media (hover: none) and (pointer: coarse) {
-  /* Ensure minimum touch target size for buttons */
-  button,
-  [role="button"],
-  a {
+  /* Ensure minimum touch target size for interactive elements */
+  button:not([class*="h-7"]):not([class*="h-8"]):not([class*="w-7"]):not(
+      [class*="w-8"]
+    ),
+  [role="button"]:not([class*="h-7"]):not([class*="h-8"]) {
     min-height: 44px;
-    min-width: 44px;
   }
 
-  /* Smaller buttons can override if explicitly sized */
-  button.sm\\:min-h-0,
-  button[class*="size-icon"] {
-    min-height: auto;
-    min-width: auto;
+  /* Task card action buttons can be smaller */
+  .task-card button {
+    min-height: 32px;
+    min-width: 32px;
   }
 
   /* Better tap targets for inputs */
@@ -1006,15 +1021,45 @@
   select,
   textarea {
     min-height: 44px;
-    font-size: 16px; /* Prevents zoom on iOS */
   }
 
-  /* Prevent zoom on input focus on iOS */
+  /* Prevent zoom on input focus on iOS - CRITICAL */
   input[type="text"],
   input[type="email"],
   input[type="password"],
-  textarea {
-    font-size: 16px;
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+  /* SelectTrigger touch optimization */
+  [data-radix-select-trigger] {
+    min-height: 44px;
+  }
+
+  /* Improve button tap feedback */
+  button:active,
+  [role="button"]:active {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+
+  /* Always show task card actions on touch devices */
+  .task-card .group-hover\\:opacity-100 {
+    opacity: 1 !important;
+  }
+
+  /* Better spacing for touch scrolling */
+  .overflow-x-auto {
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+  }
+
+  .overflow-x-auto > * {
+    scroll-snap-align: start;
   }
 }
 

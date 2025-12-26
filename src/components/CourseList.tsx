@@ -121,13 +121,13 @@ export function CourseList({
         <Button
           variant="ghost"
           className={cn(
-            "w-full justify-start gap-2 h-9",
+            "w-full justify-start gap-2 h-10 sm:h-9",
             !selectedCourseId &&
               "bg-sidebar-accent text-sidebar-accent-foreground"
           )}
           onClick={() => onSelectCourse(null)}
         >
-          <BookOpen className="h-4 w-4" />
+          <BookOpen className="h-4 w-4 flex-shrink-0" />
           <span className="flex-1 text-left">All Courses</span>
         </Button>
 
@@ -136,7 +136,7 @@ export function CourseList({
             <Button
               variant="ghost"
               className={cn(
-                "flex-1 justify-start gap-2 h-9",
+                "flex-1 justify-start gap-2 h-10 sm:h-9",
                 selectedCourseId === course.id &&
                   "bg-sidebar-accent text-sidebar-accent-foreground"
               )}
@@ -152,23 +152,23 @@ export function CourseList({
               </span>
             </Button>
 
-            {/* Action buttons - visible on hover */}
-            <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
+            {/* Action buttons - always visible on touch, hover on desktop */}
+            <div className="flex items-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-7 w-7 text-muted-foreground hover:text-foreground"
+                className="h-8 w-8 sm:h-7 sm:w-7 text-muted-foreground hover:text-foreground active:text-foreground"
                 onClick={() => openEditDialog(course)}
               >
-                <Edit2 className="h-3.5 w-3.5" />
+                <Edit2 className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-7 w-7 text-muted-foreground hover:text-destructive"
+                className="h-8 w-8 sm:h-7 sm:w-7 text-muted-foreground hover:text-destructive active:text-destructive"
                 onClick={() => openDeleteDialog(course)}
               >
-                <Trash2 className="h-3.5 w-3.5" />
+                <Trash2 className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
               </Button>
             </div>
           </div>
@@ -177,29 +177,35 @@ export function CourseList({
 
       {/* Create Course Dialog */}
       <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-        <DialogContent className="sm:max-w-[400px]">
+        <DialogContent className="w-[calc(100%-1rem)] max-w-[calc(100%-1rem)] sm:max-w-[400px]">
           <DialogHeader>
-            <DialogTitle>Add New Course</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="pr-8">Add New Course</DialogTitle>
+            <DialogDescription className="text-sm">
               Create a course to organize your study tasks.
             </DialogDescription>
           </DialogHeader>
-          <div className="py-4">
+          <div className="py-3 sm:py-4">
             <Input
               placeholder="Course name"
               value={courseName}
               onChange={(e) => setCourseName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleCreate()}
               autoFocus
+              className="h-11 sm:h-10"
             />
           </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsCreateOpen(false)}>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setIsCreateOpen(false)}
+              className="flex-1 sm:flex-none h-11 sm:h-10"
+            >
               Cancel
             </Button>
             <Button
               onClick={handleCreate}
               disabled={!courseName.trim() || isSubmitting}
+              className="flex-1 sm:flex-none h-11 sm:h-10"
             >
               {isSubmitting && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -212,27 +218,35 @@ export function CourseList({
 
       {/* Edit Course Dialog */}
       <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
-        <DialogContent className="sm:max-w-[400px]">
+        <DialogContent className="w-[calc(100%-1rem)] max-w-[calc(100%-1rem)] sm:max-w-[400px]">
           <DialogHeader>
-            <DialogTitle>Edit Course</DialogTitle>
-            <DialogDescription>Update the course name.</DialogDescription>
+            <DialogTitle className="pr-8">Edit Course</DialogTitle>
+            <DialogDescription className="text-sm">
+              Update the course name.
+            </DialogDescription>
           </DialogHeader>
-          <div className="py-4">
+          <div className="py-3 sm:py-4">
             <Input
               placeholder="Course name"
               value={courseName}
               onChange={(e) => setCourseName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleEdit()}
               autoFocus
+              className="h-11 sm:h-10"
             />
           </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsEditOpen(false)}>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setIsEditOpen(false)}
+              className="flex-1 sm:flex-none h-11 sm:h-10"
+            >
               Cancel
             </Button>
             <Button
               onClick={handleEdit}
               disabled={!courseName.trim() || isSubmitting}
+              className="flex-1 sm:flex-none h-11 sm:h-10"
             >
               {isSubmitting && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -245,20 +259,22 @@ export function CourseList({
 
       {/* Delete Course Dialog */}
       <AlertDialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent className="w-[calc(100%-1rem)] max-w-[calc(100%-1rem)] sm:max-w-lg">
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Course?</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle className="pr-8">Delete Course?</AlertDialogTitle>
+            <AlertDialogDescription className="text-sm">
               This will remove "{selectedCourse?.name}" from your courses. Tasks
               assigned to this course will not be deleted but will become
               unassigned.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogFooter className="gap-2 sm:gap-0">
+            <AlertDialogCancel className="flex-1 sm:flex-none h-11 sm:h-10">
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              className="flex-1 sm:flex-none h-11 sm:h-10 bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
               {isSubmitting ? (
                 <Loader2 className="h-4 w-4 animate-spin" />

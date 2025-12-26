@@ -1,4 +1,4 @@
-import { Task } from '@/types';
+import { Task } from "@/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,7 +8,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+} from "@/components/ui/alert-dialog";
 
 interface DeleteTaskDialogProps {
   task: Task | null;
@@ -17,21 +17,29 @@ interface DeleteTaskDialogProps {
   onConfirm: () => void;
 }
 
-export function DeleteTaskDialog({ task, open, onOpenChange, onConfirm }: DeleteTaskDialogProps) {
+export function DeleteTaskDialog({
+  task,
+  open,
+  onOpenChange,
+  onConfirm,
+}: DeleteTaskDialogProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent>
+      <AlertDialogContent className="w-[calc(100%-1rem)] max-w-[calc(100%-1rem)] sm:max-w-lg">
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete Task?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This will permanently delete "{task?.title}". This action cannot be undone.
+          <AlertDialogTitle className="pr-8">Delete Task?</AlertDialogTitle>
+          <AlertDialogDescription className="text-sm">
+            This will permanently delete "{task?.title}". This action cannot be
+            undone.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+        <AlertDialogFooter className="gap-2 sm:gap-0">
+          <AlertDialogCancel className="flex-1 sm:flex-none h-11 sm:h-10">
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className="flex-1 sm:flex-none h-11 sm:h-10 bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
             Delete
           </AlertDialogAction>

@@ -62,6 +62,9 @@ export default function AuthPage() {
   const [searchParams] = useSearchParams();
   const isConfirmed = searchParams.get("confirmed") === "true";
 
+  const pageClassName =
+    "min-h-screen-safe flex flex-col items-center justify-center bg-gradient-to-br from-background via-background to-accent/30 overflow-y-auto touch-scroll pt-[calc(1.5rem+env(safe-area-inset-top))] pb-[calc(1.5rem+env(safe-area-inset-bottom))] pl-[calc(1rem+env(safe-area-inset-left))] pr-[calc(1rem+env(safe-area-inset-right))] sm:pl-[calc(1.5rem+env(safe-area-inset-left))] sm:pr-[calc(1.5rem+env(safe-area-inset-right))]";
+
   useEffect(() => {
     if (!authLoading && user) {
       navigate("/app", { replace: true });
@@ -70,7 +73,7 @@ export default function AuthPage() {
 
   if (authLoading || (isConfirmed && !user)) {
     return (
-      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
+      <div className={pageClassName}>
         <div className="flex items-center gap-2 mb-6 sm:mb-8">
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
             <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
@@ -79,7 +82,7 @@ export default function AuthPage() {
             StudyPlanner
           </span>
         </div>
-        <Card className="w-full max-w-[calc(100%-0.5rem)] sm:max-w-md">
+        <Card className="w-full sm:max-w-md md:max-w-lg">
           <CardContent className="flex flex-col items-center justify-center py-8 sm:py-12 px-4 sm:px-6">
             <CheckCircle2 className="h-10 w-10 sm:h-12 sm:w-12 text-green-500 mb-4" />
             <h2 className="text-lg sm:text-xl font-semibold mb-2 text-center">
@@ -175,7 +178,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 sm:p-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
+    <div className={pageClassName}>
       {/* Logo */}
       <div className="flex items-center gap-2 mb-6 sm:mb-8 animate-fade-in">
         <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
@@ -186,7 +189,7 @@ export default function AuthPage() {
         </span>
       </div>
 
-      <Card className="w-full max-w-[calc(100%-0.5rem)] sm:max-w-md animate-slide-up">
+      <Card className="w-full sm:max-w-md md:max-w-lg animate-slide-up">
         <CardHeader className="text-center pb-3 sm:pb-4 px-4 sm:px-6">
           <CardTitle className="text-xl sm:text-2xl">Welcome</CardTitle>
           <CardDescription className="text-sm">

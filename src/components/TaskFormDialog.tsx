@@ -108,24 +108,26 @@ export function TaskFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[calc(100%-1rem)] sm:max-w-[500px] p-0">
+      <DialogContent className="w-[calc(100%-1rem)] max-w-[calc(100%-1rem)] sm:max-w-[500px] p-0 max-h-[90vh] sm:max-h-[85vh]">
         <form onSubmit={handleSubmit} className="flex flex-col max-h-[inherit]">
-          <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-0 flex-shrink-0">
-            <DialogTitle className="text-lg sm:text-xl pr-6">
+          <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-2 flex-shrink-0">
+            <DialogTitle className="text-lg sm:text-xl pr-8">
               {isEditing ? "Edit Task" : "Add New Task"}
             </DialogTitle>
-            <DialogDescription className="text-sm">
+            <DialogDescription className="text-xs sm:text-sm">
               {isEditing
                 ? "Make changes to your task below."
                 : "Create a new study task to track your progress."}
             </DialogDescription>
           </DialogHeader>
 
-          <ScrollArea className="flex-1 min-h-0 max-h-[50vh] sm:max-h-[60vh]">
-            <div className="grid gap-3 sm:gap-4 px-4 sm:px-6 py-4">
+          <ScrollArea className="flex-1 min-h-0 max-h-[55vh] sm:max-h-[60vh] touch-scroll">
+            <div className="grid gap-4 px-4 sm:px-6 py-4">
               {/* Title */}
-              <div className="space-y-2">
-                <Label htmlFor="title">Title *</Label>
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="title" className="text-sm">
+                  Title *
+                </Label>
                 <Input
                   id="title"
                   placeholder="e.g., Read Chapter 5"
@@ -134,7 +136,10 @@ export function TaskFormDialog({
                     setTitle(e.target.value);
                     if (errors.title) setErrors({});
                   }}
-                  className={cn(errors.title && "border-destructive")}
+                  className={cn(
+                    "h-11 sm:h-10",
+                    errors.title && "border-destructive"
+                  )}
                   autoFocus
                 />
                 {errors.title && (
@@ -143,26 +148,29 @@ export function TaskFormDialog({
               </div>
 
               {/* Description */}
-              <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="description" className="text-sm">
+                  Description
+                </Label>
                 <Textarea
                   id="description"
                   placeholder="Add details about this task..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={3}
+                  className="min-h-[80px] resize-none"
                 />
               </div>
 
               {/* Status and Priority row */}
-              <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
-                <div className="space-y-2">
-                  <Label>Status</Label>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <Label className="text-sm">Status</Label>
                   <Select
                     value={status}
                     onValueChange={(v) => setStatus(v as TaskStatus)}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="h-11 sm:h-10">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -173,13 +181,13 @@ export function TaskFormDialog({
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <Label>Priority</Label>
+                <div className="space-y-1.5 sm:space-y-2">
+                  <Label className="text-sm">Priority</Label>
                   <Select
                     value={priority}
                     onValueChange={(v) => setPriority(v as TaskPriority)}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="h-11 sm:h-10">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -192,16 +200,16 @@ export function TaskFormDialog({
               </div>
 
               {/* Course and Due Date row */}
-              <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
-                <div className="space-y-2">
-                  <Label>Course</Label>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <Label className="text-sm">Course</Label>
                   <Select
                     value={courseId || "__none__"}
                     onValueChange={(v) =>
                       setCourseId(v === "__none__" ? "" : v)
                     }
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="h-11 sm:h-10">
                       <SelectValue placeholder="Select course" />
                     </SelectTrigger>
                     <SelectContent>
@@ -210,10 +218,10 @@ export function TaskFormDialog({
                         <SelectItem key={course.id} value={course.id}>
                           <span className="flex items-center gap-2">
                             <span
-                              className="w-2 h-2 rounded-full"
+                              className="w-2 h-2 rounded-full flex-shrink-0"
                               style={{ backgroundColor: course.color }}
                             />
-                            {course.name}
+                            <span className="truncate">{course.name}</span>
                           </span>
                         </SelectItem>
                       ))}
@@ -221,22 +229,30 @@ export function TaskFormDialog({
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <Label>Due Date</Label>
+                <div className="space-y-1.5 sm:space-y-2">
+                  <Label className="text-sm">Due Date</Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
                         className={cn(
-                          "w-full justify-start text-left font-normal",
+                          "w-full h-11 sm:h-10 justify-start text-left font-normal",
                           !dueDate && "text-muted-foreground"
                         )}
                       >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {dueDate ? format(dueDate, "PPP") : "Pick a date"}
+                        <CalendarIcon className="mr-2 h-4 w-4 flex-shrink-0" />
+                        <span className="truncate text-sm">
+                          {dueDate
+                            ? format(dueDate, "MMM d, yyyy")
+                            : "Pick date"}
+                        </span>
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent
+                      className="w-auto p-0"
+                      align="start"
+                      sideOffset={4}
+                    >
                       <Calendar
                         mode="single"
                         selected={dueDate}
@@ -251,7 +267,7 @@ export function TaskFormDialog({
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="w-full"
+                            className="w-full h-9"
                             onClick={() => setDueDate(undefined)}
                           >
                             Clear date

@@ -35,6 +35,9 @@ export default function ResetPasswordPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
+  const pageClassName =
+    "min-h-screen-safe flex flex-col items-center justify-center bg-gradient-to-br from-background via-background to-accent/30 overflow-y-auto touch-scroll pt-[calc(1.5rem+env(safe-area-inset-top))] pb-[calc(1.5rem+env(safe-area-inset-bottom))] pl-[calc(1rem+env(safe-area-inset-left))] pr-[calc(1rem+env(safe-area-inset-right))] sm:pl-[calc(1.5rem+env(safe-area-inset-left))] sm:pr-[calc(1.5rem+env(safe-area-inset-right))]";
+
   useEffect(() => {
     const checkRecoverySession = async () => {
       const result = await authApi.handleAuthCallback();
@@ -92,7 +95,7 @@ export default function ResetPasswordPage() {
 
   if (isValidToken === null) {
     return (
-      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
+      <div className={pageClassName}>
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
         <p className="mt-4 text-muted-foreground text-sm sm:text-base">
           Verifying reset link...
@@ -103,7 +106,7 @@ export default function ResetPasswordPage() {
 
   if (isValidToken === false) {
     return (
-      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
+      <div className={pageClassName}>
         <div className="flex items-center gap-2 mb-6 sm:mb-8">
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
             <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
@@ -113,7 +116,7 @@ export default function ResetPasswordPage() {
           </span>
         </div>
 
-        <Card className="w-full max-w-[calc(100%-0.5rem)] sm:max-w-md">
+        <Card className="w-full sm:max-w-md md:max-w-lg">
           <CardHeader className="text-center pb-3 sm:pb-4 px-4 sm:px-6">
             <div className="mx-auto mb-4 w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center">
               <AlertCircle className="h-6 w-6 text-destructive" />
@@ -138,7 +141,7 @@ export default function ResetPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
+      <div className={pageClassName}>
         <div className="flex items-center gap-2 mb-6 sm:mb-8">
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
             <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
@@ -148,7 +151,7 @@ export default function ResetPasswordPage() {
           </span>
         </div>
 
-        <Card className="w-full max-w-[calc(100%-0.5rem)] sm:max-w-md">
+        <Card className="w-full sm:max-w-md md:max-w-lg">
           <CardHeader className="text-center pb-3 sm:pb-4 px-4 sm:px-6">
             <div className="mx-auto mb-4 w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
               <CheckCircle2 className="h-6 w-6 text-green-500" />
@@ -174,7 +177,7 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
+    <div className={pageClassName}>
       {/* Logo */}
       <div className="flex items-center gap-2 mb-6 sm:mb-8 animate-fade-in">
         <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
@@ -185,7 +188,7 @@ export default function ResetPasswordPage() {
         </span>
       </div>
 
-      <Card className="w-full max-w-[calc(100%-0.5rem)] sm:max-w-md animate-slide-up">
+      <Card className="w-full sm:max-w-md md:max-w-lg animate-slide-up">
         <CardHeader className="text-center pb-3 sm:pb-4 px-4 sm:px-6">
           <CardTitle className="text-xl sm:text-2xl">
             Create New Password

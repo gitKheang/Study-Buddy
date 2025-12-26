@@ -207,9 +207,9 @@ export default function Dashboard() {
       </aside>
 
       <main className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
-        <header className="flex-shrink-0 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b px-4 lg:px-6">
-          <div className="flex items-center justify-between h-14">
-            <div className="flex items-center gap-3">
+        <header className="flex-shrink-0 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b px-3 sm:px-4 lg:px-6 safe-area-top">
+          <div className="flex items-center justify-between h-14 sm:h-14 gap-2">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
               <Sheet
                 open={isMobileSidebarOpen}
                 onOpenChange={setIsMobileSidebarOpen}
@@ -217,7 +217,11 @@ export default function Dashboard() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <SheetTrigger asChild>
-                      <Button variant="ghost" size="icon" className="lg:hidden">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="lg:hidden h-9 w-9 flex-shrink-0"
+                      >
                         <Menu className="h-5 w-5" />
                       </Button>
                     </SheetTrigger>
@@ -226,19 +230,22 @@ export default function Dashboard() {
                     <p>Open menu</p>
                   </TooltipContent>
                 </Tooltip>
-                <SheetContent side="left" className="p-0 w-72 h-full">
+                <SheetContent
+                  side="left"
+                  className="p-0 w-[280px] sm:w-72 h-full"
+                >
                   <SidebarContent />
                 </SheetContent>
               </Sheet>
 
-              <div>
-                <h1 className="text-lg font-semibold text-foreground">
+              <div className="min-w-0 flex-1">
+                <h1 className="text-base sm:text-lg font-semibold text-foreground truncate">
                   {selectedCourseId
                     ? getCourseById(selectedCourseId)?.name || "Tasks"
                     : "All Tasks"}
                 </h1>
-                <p className="text-xs text-muted-foreground hidden sm:block">
-                  {taskCounts.all} total • {taskCounts.done} completed
+                <p className="text-[10px] sm:text-xs text-muted-foreground">
+                  {taskCounts.all} total • {taskCounts.done} done
                 </p>
               </div>
             </div>
@@ -246,14 +253,14 @@ export default function Dashboard() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
+                  className="h-9 sm:h-9 px-3 sm:px-4 flex-shrink-0"
                   onClick={() => {
                     setEditingTask(null);
                     setIsTaskDialogOpen(true);
                   }}
                 >
-                  <Plus className="h-4 w-4 mr-2" />
+                  <Plus className="h-4 w-4 sm:mr-2" />
                   <span className="hidden sm:inline">Add Task</span>
-                  <span className="sm:hidden">Add</span>
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
@@ -263,8 +270,8 @@ export default function Dashboard() {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 lg:p-6">
-          <div className="max-w-3xl mx-auto space-y-6 pb-6">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 lg:p-6 touch-scroll">
+          <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6 pb-6 safe-area-bottom">
             <FilterBar
               filter={filter}
               onFilterChange={setFilter}
@@ -298,7 +305,7 @@ export default function Dashboard() {
                 }}
               />
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {tasks.map((task) => (
                   <TaskCard
                     key={task.id}
