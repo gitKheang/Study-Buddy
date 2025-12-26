@@ -1,105 +1,54 @@
-# Study Buddy
+# React + TypeScript + Vite
 
-A modern task management app for students to organize assignments, track progress, and stay on top of deadlines.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-![React](https://img.shields.io/badge/React-19-blue?logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4-blue?logo=tailwindcss)
-![Supabase](https://img.shields.io/badge/Supabase-Backend-green?logo=supabase)
+Currently, two official plugins are available:
 
-## Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- 📚 **Course Management** - Organize tasks by courses with custom colors
-- ✅ **Task Tracking** - Move tasks through Todo → In Progress → Done
-- ⏱️ **Time Tracking** - Automatic time tracking when tasks are in progress
-- 📅 **Due Dates** - Never miss a deadline with date tracking
-- 🎨 **Multiple Themes** - Choose from Violet, Ocean, Forest, Sunset, and Rose color themes
-- 🌙 **Dark Mode** - Light, dark, or system theme preference
-- 🔐 **Authentication** - Secure login with Supabase Auth
-- 📱 **Responsive** - Works on desktop and mobile devices
+## Expanding the ESLint configuration
 
-## Tech Stack
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-- **Frontend**: React 19, TypeScript, Vite
-- **Styling**: Tailwind CSS, shadcn/ui
-- **Backend**: Supabase (PostgreSQL + Auth)
-- **State Management**: React Context + Hooks
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-- Supabase account (optional - app works with mock data without it)
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/gitKheang/Study-Buddy.git
-   cd Study-Buddy
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Set up environment variables:
-   ```bash
-   cp .env.example .env
-   ```
-   
-   Edit `.env` with your Supabase credentials:
-   ```env
-   VITE_SUPABASE_URL=your_supabase_project_url
-   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-   ```
-
-4. (Optional) Set up Supabase database:
-   - Create a new Supabase project
-   - Run the SQL from `supabase-schema.sql` in the SQL editor
-
-5. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-6. Open [http://localhost:5173](http://localhost:5173) in your browser
-
-## Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-
-## Project Structure
-
-```
-src/
-├── components/     # Reusable UI components
-│   └── ui/         # shadcn/ui components
-├── hooks/          # Custom React hooks
-├── lib/            # Utilities and API
-├── pages/          # Page components
-└── types/          # TypeScript types
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-## Environment Variables
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React specific lint rules:
 
-| Variable | Description |
-|----------|-------------|
-| `VITE_SUPABASE_URL` | Your Supabase project URL |
-| `VITE_SUPABASE_ANON_KEY` | Your Supabase anonymous key |
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-> **Note**: The app works without Supabase using mock data for testing.
-
-## License
-
-MIT
-
-## Author
-
-Built with ❤️ by Kheang
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
+```
