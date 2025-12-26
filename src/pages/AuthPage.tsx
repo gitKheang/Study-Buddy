@@ -70,20 +70,22 @@ export default function AuthPage() {
 
   if (authLoading || (isConfirmed && !user)) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-background to-accent/30">
-        <div className="flex items-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
-            <BookOpen className="h-5 w-5 text-primary-foreground" />
+      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
+        <div className="flex items-center gap-2 mb-6 sm:mb-8">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
+            <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
           </div>
-          <span className="text-2xl font-bold text-foreground">
+          <span className="text-xl sm:text-2xl font-bold text-foreground">
             StudyPlanner
           </span>
         </div>
-        <Card className="w-full max-w-md">
-          <CardContent className="flex flex-col items-center justify-center py-12">
-            <CheckCircle2 className="h-12 w-12 text-green-500 mb-4" />
-            <h2 className="text-xl font-semibold mb-2">Email Confirmed!</h2>
-            <p className="text-muted-foreground text-center mb-4">
+        <Card className="w-full max-w-[calc(100%-0.5rem)] sm:max-w-md">
+          <CardContent className="flex flex-col items-center justify-center py-8 sm:py-12 px-4 sm:px-6">
+            <CheckCircle2 className="h-10 w-10 sm:h-12 sm:w-12 text-green-500 mb-4" />
+            <h2 className="text-lg sm:text-xl font-semibold mb-2 text-center">
+              Email Confirmed!
+            </h2>
+            <p className="text-sm text-muted-foreground text-center mb-4">
               Your email has been verified. Redirecting to dashboard...
             </p>
             <Loader2 className="h-6 w-6 animate-spin text-primary" />
@@ -173,25 +175,27 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-background to-accent/30">
+    <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 sm:p-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
       {/* Logo */}
-      <div className="flex items-center gap-2 mb-8 animate-fade-in">
-        <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
-          <BookOpen className="h-5 w-5 text-primary-foreground" />
+      <div className="flex items-center gap-2 mb-6 sm:mb-8 animate-fade-in">
+        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
+          <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
         </div>
-        <span className="text-2xl font-bold text-foreground">StudyPlanner</span>
+        <span className="text-xl sm:text-2xl font-bold text-foreground">
+          StudyPlanner
+        </span>
       </div>
 
-      <Card className="w-full max-w-md animate-slide-up">
-        <CardHeader className="text-center pb-4">
-          <CardTitle className="text-2xl">Welcome</CardTitle>
-          <CardDescription>
+      <Card className="w-full max-w-[calc(100%-0.5rem)] sm:max-w-md animate-slide-up">
+        <CardHeader className="text-center pb-3 sm:pb-4 px-4 sm:px-6">
+          <CardTitle className="text-xl sm:text-2xl">Welcome</CardTitle>
+          <CardDescription className="text-sm">
             {activeTab === "login"
               ? "Sign in to your account"
               : "Create a new account"}
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 sm:px-6">
           <Tabs value={activeTab} onValueChange={handleTabChange}>
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="login">Log In</TabsTrigger>
@@ -361,7 +365,7 @@ export default function AuthPage() {
         open={showForgotPassword}
         onOpenChange={closeForgotPasswordDialog}
       >
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="w-[calc(100%-2rem)] max-w-md mx-auto">
           <DialogHeader>
             <DialogTitle>Forgot Password</DialogTitle>
             <DialogDescription>

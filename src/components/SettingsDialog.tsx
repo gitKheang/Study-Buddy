@@ -228,21 +228,21 @@ export function SettingsDialog({
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-lg p-0">
-          <DialogHeader className="px-6 pt-6 pb-0 flex-shrink-0">
-            <DialogTitle className="text-xl">Settings</DialogTitle>
+        <DialogContent className="w-[calc(100%-1rem)] max-w-lg p-0">
+          <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-0 flex-shrink-0">
+            <DialogTitle className="text-lg sm:text-xl">Settings</DialogTitle>
           </DialogHeader>
 
-          <ScrollArea className="flex-1 min-h-0 max-h-[60vh] sm:max-h-[65vh]">
-            <div className="px-6 pb-6 space-y-6">
+          <ScrollArea className="flex-1 min-h-0 max-h-[55vh] sm:max-h-[65vh]">
+            <div className="px-4 sm:px-6 pb-6 space-y-5 sm:space-y-6">
               {/* Account Section */}
-              <section className="space-y-4">
+              <section className="space-y-3 sm:space-y-4">
                 <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                   <User className="h-4 w-4" />
                   Account
                 </div>
 
-                <div className="space-y-3 pl-6">
+                <div className="space-y-3 pl-4 sm:pl-6">
                   <div className="space-y-1.5">
                     <Label className="text-xs text-muted-foreground">
                       Email
@@ -286,13 +286,13 @@ export function SettingsDialog({
               <Separator />
 
               {/* Security Section */}
-              <section className="space-y-4">
+              <section className="space-y-3 sm:space-y-4">
                 <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                   <Shield className="h-4 w-4" />
                   Security
                 </div>
 
-                <div className="space-y-3 pl-6">
+                <div className="space-y-3 pl-4 sm:pl-6">
                   {!showPasswordChange ? (
                     <Button
                       variant="outline"
@@ -406,16 +406,16 @@ export function SettingsDialog({
               <Separator />
 
               {/* Appearance Section */}
-              <section className="space-y-4">
+              <section className="space-y-3 sm:space-y-4">
                 <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                   <Palette className="h-4 w-4" />
                   Appearance
                 </div>
 
-                <div className="space-y-4 pl-6">
+                <div className="space-y-4 pl-4 sm:pl-6">
                   <div className="space-y-2">
                     <Label>Mode</Label>
-                    <div className="flex gap-2">
+                    <div className="flex gap-1.5 sm:gap-2">
                       {(["light", "dark", "system"] as const).map((theme) => {
                         const Icon = themeIcons[theme];
                         return (
@@ -426,10 +426,12 @@ export function SettingsDialog({
                             }
                             size="sm"
                             onClick={() => updateSettings({ theme })}
-                            className="flex-1 gap-2"
+                            className="flex-1 gap-1.5 sm:gap-2 px-2 sm:px-3 min-h-[40px]"
                           >
                             <Icon className="h-4 w-4" />
-                            <span className="capitalize">{theme}</span>
+                            <span className="capitalize text-xs sm:text-sm">
+                              {theme}
+                            </span>
                           </Button>
                         );
                       })}
@@ -438,14 +440,14 @@ export function SettingsDialog({
 
                   <div className="space-y-2">
                     <Label>Color Theme</Label>
-                    <div className="grid grid-cols-5 gap-2">
+                    <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
                       {colorThemes.map((theme) => (
                         <button
                           key={theme.id}
                           onClick={() =>
                             updateSettings({ colorTheme: theme.id })
                           }
-                          className={`relative flex flex-col items-center gap-1.5 p-2 rounded-lg border-2 transition-all hover:scale-105 ${
+                          className={`relative flex flex-col items-center gap-1 sm:gap-1.5 p-1.5 sm:p-2 rounded-lg border-2 transition-all hover:scale-105 min-h-[60px] sm:min-h-[auto] ${
                             settings.colorTheme === theme.id
                               ? "border-primary bg-primary/5"
                               : "border-transparent bg-muted/50 hover:bg-muted"
@@ -453,10 +455,10 @@ export function SettingsDialog({
                           title={theme.name}
                         >
                           <div
-                            className="w-8 h-8 rounded-full shadow-sm"
+                            className="w-6 h-6 sm:w-8 sm:h-8 rounded-full shadow-sm flex-shrink-0"
                             style={{ background: theme.preview }}
                           />
-                          <span className="text-[10px] font-medium truncate w-full text-center">
+                          <span className="text-[9px] sm:text-[10px] font-medium truncate w-full text-center leading-tight">
                             {theme.name}
                           </span>
                           {settings.colorTheme === theme.id && (
@@ -490,14 +492,14 @@ export function SettingsDialog({
               <Separator />
 
               {/* Task Defaults Section */}
-              <section className="space-y-4">
+              <section className="space-y-3 sm:space-y-4">
                 <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                   <ListTodo className="h-4 w-4" />
                   Task Defaults
                 </div>
 
-                <div className="space-y-4 pl-6">
-                  <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-4 pl-4 sm:pl-6">
+                  <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
                     <div className="space-y-1.5">
                       <Label>Default Priority</Label>
                       <Select
@@ -560,14 +562,14 @@ export function SettingsDialog({
               <Separator />
 
               {/* Preferences Section */}
-              <section className="space-y-4">
+              <section className="space-y-3 sm:space-y-4">
                 <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                   <Calendar className="h-4 w-4" />
                   Preferences
                 </div>
 
-                <div className="space-y-4 pl-6">
-                  <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-4 pl-4 sm:pl-6">
+                  <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
                     <div className="space-y-1.5">
                       <Label>Week Starts On</Label>
                       <Select
@@ -610,13 +612,13 @@ export function SettingsDialog({
               <Separator />
 
               {/* Data Section */}
-              <section className="space-y-4">
+              <section className="space-y-3 sm:space-y-4">
                 <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                   <Download className="h-4 w-4" />
                   Data
                 </div>
 
-                <div className="space-y-3 pl-6">
+                <div className="space-y-3 pl-4 sm:pl-6">
                   <Button
                     variant="outline"
                     className="w-full justify-start gap-2"

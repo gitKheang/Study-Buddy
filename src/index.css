@@ -854,6 +854,28 @@
 /* ============================================
    iOS & iPadOS SPECIFIC FIXES
    ============================================ */
+
+/* Safe area insets for newer iPhones/iPads with notches */
+.safe-area-inset {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Touch-friendly scrolling class */
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
 /* Fix for iOS Safari 100vh issue */
 @supports (-webkit-touch-callout: none) {
   html,
@@ -887,6 +909,16 @@
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
+  /* Smaller dialog padding on small phones */
+  [role="dialog"] {
+    padding: 1rem;
+  }
+
+  /* Smaller text on very small screens */
+  h1 {
+    font-size: 1.75rem !important;
+  }
 }
 
 /* iPhone 12/13/14 Pro and similar */
@@ -894,6 +926,14 @@
   .container {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+  }
+}
+
+/* iPhone Plus/Max models */
+@media screen and (min-width: 414px) and (max-width: 430px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 
@@ -911,6 +951,22 @@
   }
 }
 
+/* iPad Pro 11" (portrait) */
+@media screen and (min-width: 834px) and (max-width: 1024px) {
+  .container {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+/* iPad Pro 12.9" and larger iPads */
+@media screen and (min-width: 1024px) and (max-width: 1366px) {
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
 /* Responsive container padding */
 @media screen and (min-width: 834px) {
   .container {
@@ -923,6 +979,42 @@
   .container {
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+}
+
+/* ============================================
+   TOUCH TARGET SIZE IMPROVEMENTS
+   ============================================ */
+@media (hover: none) and (pointer: coarse) {
+  /* Ensure minimum touch target size for buttons */
+  button,
+  [role="button"],
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Smaller buttons can override if explicitly sized */
+  button.sm\\:min-h-0,
+  button[class*="size-icon"] {
+    min-height: auto;
+    min-width: auto;
+  }
+
+  /* Better tap targets for inputs */
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Prevent zoom on input focus on iOS */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    font-size: 16px;
   }
 }
 

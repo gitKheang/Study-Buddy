@@ -92,36 +92,38 @@ export default function ResetPasswordPage() {
 
   if (isValidToken === null) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-background to-accent/30">
+      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        <p className="mt-4 text-muted-foreground">Verifying reset link...</p>
+        <p className="mt-4 text-muted-foreground text-sm sm:text-base">
+          Verifying reset link...
+        </p>
       </div>
     );
   }
 
   if (isValidToken === false) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-background to-accent/30">
-        <div className="flex items-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
-            <BookOpen className="h-5 w-5 text-primary-foreground" />
+      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
+        <div className="flex items-center gap-2 mb-6 sm:mb-8">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
+            <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
           </div>
-          <span className="text-2xl font-bold text-foreground">
+          <span className="text-xl sm:text-2xl font-bold text-foreground">
             StudyPlanner
           </span>
         </div>
 
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center pb-4">
+        <Card className="w-full max-w-[calc(100%-0.5rem)] sm:max-w-md">
+          <CardHeader className="text-center pb-3 sm:pb-4 px-4 sm:px-6">
             <div className="mx-auto mb-4 w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center">
               <AlertCircle className="h-6 w-6 text-destructive" />
             </div>
-            <CardTitle className="text-2xl">Link Expired</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl sm:text-2xl">Link Expired</CardTitle>
+            <CardDescription className="text-sm">
               This reset link is no longer valid.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 px-4 sm:px-6">
             <p className="text-sm text-muted-foreground text-center">
               Please request a new link from the login page.
             </p>
@@ -136,25 +138,29 @@ export default function ResetPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-background to-accent/30">
-        <div className="flex items-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
-            <BookOpen className="h-5 w-5 text-primary-foreground" />
+      <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
+        <div className="flex items-center gap-2 mb-6 sm:mb-8">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
+            <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
           </div>
-          <span className="text-2xl font-bold text-foreground">
+          <span className="text-xl sm:text-2xl font-bold text-foreground">
             StudyPlanner
           </span>
         </div>
 
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center pb-4">
+        <Card className="w-full max-w-[calc(100%-0.5rem)] sm:max-w-md">
+          <CardHeader className="text-center pb-3 sm:pb-4 px-4 sm:px-6">
             <div className="mx-auto mb-4 w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
               <CheckCircle2 className="h-6 w-6 text-green-500" />
             </div>
-            <CardTitle className="text-2xl">Password Changed</CardTitle>
-            <CardDescription>Your password has been updated.</CardDescription>
+            <CardTitle className="text-xl sm:text-2xl">
+              Password Changed
+            </CardTitle>
+            <CardDescription className="text-sm">
+              Your password has been updated.
+            </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-4 sm:px-6">
             <p className="text-sm text-muted-foreground text-center mb-4">
               Taking you to login...
             </p>
@@ -168,21 +174,27 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-background to-accent/30">
+    <div className="min-h-[100dvh] flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-background via-background to-accent/30 safe-area-inset">
       {/* Logo */}
-      <div className="flex items-center gap-2 mb-8 animate-fade-in">
-        <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
-          <BookOpen className="h-5 w-5 text-primary-foreground" />
+      <div className="flex items-center gap-2 mb-6 sm:mb-8 animate-fade-in">
+        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
+          <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
         </div>
-        <span className="text-2xl font-bold text-foreground">StudyPlanner</span>
+        <span className="text-xl sm:text-2xl font-bold text-foreground">
+          StudyPlanner
+        </span>
       </div>
 
-      <Card className="w-full max-w-md animate-slide-up">
-        <CardHeader className="text-center pb-4">
-          <CardTitle className="text-2xl">Create New Password</CardTitle>
-          <CardDescription>Enter your new password</CardDescription>
+      <Card className="w-full max-w-[calc(100%-0.5rem)] sm:max-w-md animate-slide-up">
+        <CardHeader className="text-center pb-3 sm:pb-4 px-4 sm:px-6">
+          <CardTitle className="text-xl sm:text-2xl">
+            Create New Password
+          </CardTitle>
+          <CardDescription className="text-sm">
+            Enter your new password
+          </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 sm:px-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="password">New Password</Label>

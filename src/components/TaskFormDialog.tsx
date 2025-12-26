@@ -108,21 +108,21 @@ export function TaskFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] p-0">
+      <DialogContent className="w-[calc(100%-1rem)] sm:max-w-[500px] p-0">
         <form onSubmit={handleSubmit} className="flex flex-col max-h-[inherit]">
-          <DialogHeader className="px-6 pt-6 pb-0 flex-shrink-0">
-            <DialogTitle>
+          <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-0 flex-shrink-0">
+            <DialogTitle className="text-lg sm:text-xl pr-6">
               {isEditing ? "Edit Task" : "Add New Task"}
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-sm">
               {isEditing
                 ? "Make changes to your task below."
                 : "Create a new study task to track your progress."}
             </DialogDescription>
           </DialogHeader>
 
-          <ScrollArea className="flex-1 min-h-0 max-h-[55vh] sm:max-h-[60vh]">
-            <div className="grid gap-4 px-6 py-4">
+          <ScrollArea className="flex-1 min-h-0 max-h-[50vh] sm:max-h-[60vh]">
+            <div className="grid gap-3 sm:gap-4 px-4 sm:px-6 py-4">
               {/* Title */}
               <div className="space-y-2">
                 <Label htmlFor="title">Title *</Label>
@@ -155,7 +155,7 @@ export function TaskFormDialog({
               </div>
 
               {/* Status and Priority row */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
                 <div className="space-y-2">
                   <Label>Status</Label>
                   <Select
@@ -192,7 +192,7 @@ export function TaskFormDialog({
               </div>
 
               {/* Course and Due Date row */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
                 <div className="space-y-2">
                   <Label>Course</Label>
                   <Select
@@ -265,16 +265,21 @@ export function TaskFormDialog({
             </div>
           </ScrollArea>
 
-          <DialogFooter className="px-6 pb-6 pt-4 flex-shrink-0 border-t">
+          <DialogFooter className="px-4 sm:px-6 pb-4 sm:pb-6 pt-3 sm:pt-4 flex-shrink-0 border-t gap-2 sm:gap-0">
             <Button
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
               disabled={isSubmitting}
+              className="flex-1 sm:flex-none min-h-[44px] sm:min-h-[40px]"
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting}>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="flex-1 sm:flex-none min-h-[44px] sm:min-h-[40px]"
+            >
               {isSubmitting && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               )}
