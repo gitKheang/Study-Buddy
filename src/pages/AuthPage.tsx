@@ -313,14 +313,6 @@ export default function AuthPage() {
               </Button>
             </form>
           </Tabs>
-
-          {/* Demo hint */}
-          <div className="mt-6 p-3 rounded-lg bg-accent/50 text-center">
-            <p className="text-xs text-muted-foreground">
-              <strong>Demo:</strong> Use any email and password (min 6 chars) to
-              explore
-            </p>
-          </div>
         </CardContent>
       </Card>
 
